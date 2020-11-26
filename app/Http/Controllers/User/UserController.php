@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -20,7 +20,6 @@ class UserController extends Controller
 
     protected $attributes = [
         'username',
-        'email',
         'password'
     ];
 
@@ -35,9 +34,9 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $query = User::where('id' ,$request->input('id'))->first();
+        $query = User::where('id' ,$request->input('user_id'))->first();
             
-        $query->fill($request->only($this->attributes), $request->input('id'));
+        $query->fill($request->only($this->attributes), $request->input('user_id'));
 
         $query->save();
 
@@ -46,7 +45,7 @@ class UserController extends Controller
 
     public function delete(Request $request)
     {
-        $query = User::where('id' ,$request->input('id'))->first();
+        $query = User::where('id' ,$request->input('user_id'))->first();
 
         $query->delete();
 

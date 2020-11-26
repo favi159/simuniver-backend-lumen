@@ -22,11 +22,11 @@ class AuthenticateController extends Controller
 
     public function authenticate(Request $request) 
     {
-        $user = User::where('email', $request->input('email'))->first();
+        $user = User::where('username', $request->input('username'))->first();
 
         if ($request->input('password') == $user->password) {
             $apikey = base64_encode(Str::random(40));
-            User::where('email', $request->input('email'))->update(['api_token' => "$apikey"]);
+            User::where('username', $request->input('username'))->update(['api_token' => $apikey]);
 
             return response()->json(['status' => 'success','api_token' => $apikey]);
         } else {
